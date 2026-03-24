@@ -85,12 +85,12 @@
         <div id="tela-login">
             <h1>LOGIN 👻</h1>
             <div class="campo-login">
-                <label>Nick Jogador 1:</label><br>
-                <input type="text" id="p1" placeholder="Nick do X">
+                <label>Nick Player 1:</label><br>
+                <input type="text" id="p1" placeholder="Nick">
             </div>
             <div class="campo-login">
-                <label>Nick Jogador 2:</label><br>
-                <input type="text" id="p2" placeholder="Nick do O">
+                <label>Nick Player 2:</label><br>
+                <input type="text" id="p2" placeholder="Nick">
             </div>
             <button onclick="iniciarJogo()">INICIAR JOGO</button>
         </div>
@@ -120,8 +120,8 @@
         let n1, n2, v1 = 0, v2 = 0, turno = "X", ativo = true, estado = ["","","","","","","","",""];
 
         function iniciarJogo() {
-            n1 = document.getElementById('p1').value || "Jogador X";
-            n2 = document.getElementById('p2').value || "Jogador O";
+            n1 = document.getElementById('p1').value || "Jogador 1";
+            n2 = document.getElementById('p2').value || "Jogador 2";
             document.getElementById('txt-p1').innerText = n1;
             document.getElementById('txt-p2').innerText = n2;
             document.getElementById('tela-login').style.display = 'none';

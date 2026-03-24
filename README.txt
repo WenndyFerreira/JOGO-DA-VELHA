@@ -25,4 +25,4 @@ O projeto segue uma estética "Noir", utilizando uma paleta de cores restrita pa
 Sinta-se à vontade para clonar este repositório, estudar o código ou sugerir melhorias. Este projeto é de código aberto para fins educacionais.
 
 ---
-Desenvolvido por **Wenndy** como parte da jornada de aprendizado em Tecnologia. ✨
+Desenvolvido por **Wenndy Ferreira** como parte da jornada de aprendizado em Tecnologia. ✨
