@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic-Tac-Toe Noir 👻</title>
+    <style>
+        /* Estilo Minimalista Preto e Roxo */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            border: 2px solid #fff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            width: 350px;
+        }
+
+        /* Interface 1: Login */
+        .campo-login {
+            margin: 15px 0;
+        }
+
+        input {
+            background: #000;
+            border: 1px solid #fff;
+            color: #A020F0; /* Roxo ao digitar */
+            padding: 10px;
+            width: 80%;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Interface 2: Jogo */
+        #tela-jogo { display: none; }
+
+        .tabuleiro {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px auto;
+            background-color: #fff; /* Cria a linha branca entre as células */
+            border: 2px solid #fff;
+        }
+
+        .celula {
+            width: 100px;
+            height: 100px;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        button:hover { background: #A020F0; color: #fff; }
+
+        .ranking { margin-top: 20px; font-size: 14px; border-top: 1px solid #333; padding-top: 10px; }
+        #info-vez { color: #A020F0; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="tela-login">
+            <h1>LOGIN 👻</h1>
+            <div class="campo-login">
+                <label>Nick Jogador 1:</label><br>
+                <input type="text" id="p1" placeholder="Nick do X">
+            </div>
+            <div class="campo-login">
+                <label>Nick Jogador 2:</label><br>
+                <input type="text" id="p2" placeholder="Nick do O">
+            </div>
+            <button onclick="iniciarJogo()">INICIAR JOGO</button>
+        </div>
+
+        <div id="tela-jogo">
+            <div id="info-vez">Vez de: X</div>
+            <div class="tabuleiro" id="board">
+                <div class="celula" onclick="jogar(0)"></div>
+                <div class="celula" onclick="jogar(1)"></div>
+                <div class="celula" onclick="jogar(2)"></div>
+                <div class="celula" onclick="jogar(3)"></div>
+                <div class="celula" onclick="jogar(4)"></div>
+                <div class="celula" onclick="jogar(5)"></div>
+                <div class="celula" onclick="jogar(6)"></div>
+                <div class="celula" onclick="jogar(7)"></div>
+                <div class="celula" onclick="jogar(8)"></div>
+            </div>
+            <div class="ranking">
+                <strong>RANKING</strong><br>
+                <span id="txt-p1"></span>: <span id="v-p1">0</span> | 
+                <span id="txt-p2"></span>: <span id="v-p2">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let n1, n2, v1 = 0, v2 = 0, turno = "X", ativo = true, estado = ["","","","","","","","",""];
+
+        function iniciarJogo() {
+            n1 = document.getElementById('p1').value || "Jogador X";
+            n2 = document.getElementById('p2').value || "Jogador O";
+            document.getElementById('txt-p1').innerText = n1;
+            document.getElementById('txt-p2').innerText = n2;
+            document.getElementById('tela-login').style.display = 'none';
+            document.getElementById('tela-jogo').style.display = 'block';
+            atualizarVez();
+        }
+
+        function jogar(i) {
+            if (estado[i] !== "" || !ativo) return;
+            estado[i] = turno;
+            document.getElementsByClassName('celula')[i].innerText = turno;
+            
+            if (checarVitoria()) {
+                alert("Vitória de " + (turno === "X" ? n1 : n2) + "! 🏆");
+                if (turno === "X") v1++; else v2++;
+                atualizarPlacar();
+                resetar();
+            } else if (!estado.includes("")) {
+                alert("Empate! 👻");
+                resetar();
+            } else {
+                turno = turno === "X" ? "O" : "X";
+                atualizarVez();
+            }
+        }
+
+        function checarVitoria() {
+            const combos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return combos.some(c => estado[c[0]] && estado[c[0]] === estado[c[1]] && estado[c[0]] === estado[c[2]]);
+        }
+
+        function atualizarVez() { document.getElementById('info-vez').innerText = "Vez de: " + (turno === "X" ? n1 : n2); }
+        function atualizarPlacar() { document.getElementById('v-p1').innerText = v1; document.getElementById('v-p2').innerText = v2; }
+        
+        function resetar() {
+            estado = ["","","","","","","","",""];
+            Array.from(document.getElementsByClassName('celula')).forEach(c => c.innerText = "");
+            turno = "X";
+            atualizarVez();
+        }
+    </script>
+</body>
+</html>
